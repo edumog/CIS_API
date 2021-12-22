@@ -1,3 +1,4 @@
+using CIS.Db;
 using CIS.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,8 @@ namespace CIS_API.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            CrmCampaigns db = new CrmCampaigns();
+            //var campaigns = db.GetCrmCampaigns();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),

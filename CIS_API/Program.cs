@@ -1,3 +1,4 @@
+using CIS.Db;
 using CIS.Interfaces;
 using CIS.Services;
 
@@ -11,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<StandardizationContract, StandardizationService>();
+builder.Services.AddScoped<ICrmCampaignDb, CrmCampaigns>();
 
 var app = builder.Build();
 
