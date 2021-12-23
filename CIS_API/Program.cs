@@ -1,6 +1,7 @@
 using CIS.Db;
 using CIS.Interfaces;
 using CIS.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContextPool<ApplicationDbContext>(opt => opt.UseSqlServer(@"Data Source=DESKTOP-T6PJIPS\SQLEXPRESS;Initial Catalog=CMR;Integrated Security=True"));
 builder.Services.AddScoped<StandardizationContract, StandardizationService>();
 builder.Services.AddScoped<ICrmCampaignDb, CrmCampaigns>();
 

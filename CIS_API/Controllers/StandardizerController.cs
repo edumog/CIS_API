@@ -18,7 +18,7 @@ namespace CIS_API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(new Client()
+            return Ok(new ClientDTO()
             {
                 Name= "eduardo"
             });
@@ -29,7 +29,7 @@ namespace CIS_API.Controllers
         {
             try
             {
-                IList<Client> clients = standardizationService.GetClients(form);
+                IList<ClientDTO> clients = standardizationService.GetClients(form);
                 return Ok(clients);
             }
             catch (Exception ex)

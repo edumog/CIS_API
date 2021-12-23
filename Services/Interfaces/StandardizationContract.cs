@@ -10,6 +10,6 @@ namespace CIS.Interfaces
 {
     public interface StandardizationContract
     {
-        IList<Client> GetClients(StandardizationParameters options);
+        IList<ClientDTO> GetClients(StandardizationParameters options);
     }
 }

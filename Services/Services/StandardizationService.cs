@@ -7,12 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using CIS.Db;
 
 namespace CIS.Services
 {
     public class StandardizationService : StandardizationContract
     {
-        public IList<Client> GetClients(StandardizationParameters options)
+        private ApplicationDbContext dbContext;
+
+        public StandardizationService(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
+        public IList<ClientDTO> GetClients(StandardizationParameters options)
         {
             string stringFile = ReadFile(options.File);
             IList<string> rows = GetRows(stringFile, options.ColumnDelimiter);
@@ -40,13 +48,13 @@ namespace CIS.Services
         {
             return row.Split(new char[] { rowDelimiter.FirstOrDefault() }).ToList<string>();
         }
-        private IList<Client> GetClients(IList<string> rows, IList<string> headers, string[] nameComposition, string[] lastNameComposition, string addressDelimiter, string[] addresses, string phoneDelimiter, string[] phoneNumbers)
+        private IList<ClientDTO> GetClients(IList<string> rows, IList<string> headers, string[] nameComposition, string[] lastNameComposition, string addressDelimiter, string[] addresses, string phoneDelimiter, string[] phoneNumbers)
         {
-            IList<Client> clientes = new List<Client>();
+            IList<ClientDTO> clientes = new List<ClientDTO>();
             foreach (string row in rows)
             {
                 IList<string> rowValues = row.Split(new char[] { ',' }).ToList<string>();
-                Client client = new Client
+                ClientDTO client = new ClientDTO
                 {
                     Name = ComposeProperty(nameComposition, headers, rowValues),
                     LastName = ComposeProperty(lastNameComposition, headers, rowValues),

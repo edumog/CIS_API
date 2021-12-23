@@ -1,4 +1,7 @@
-﻿using CIS.Interfaces;
+﻿using CIS.Db;
+using CIS.DTOs;
+using CIS.Interfaces;
+using CIS.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +12,12 @@ namespace CIS_API.Controllers
     public class CrmCampaignsController : ControllerBase
     {
         private ICrmCampaignDb db;
+        private ApplicationDbContext dbContext;
 
-        public CrmCampaignsController(ICrmCampaignDb db)
+        public CrmCampaignsController(ICrmCampaignDb db, ApplicationDbContext dbContext)
         {
             this.db = db;   
+            this.dbContext = dbContext; 
         }
 
         [HttpGet]
@@ -20,7 +25,7 @@ namespace CIS_API.Controllers
         {
             try
             {
-                return Ok(this.db.GetCrmCampaigns());
+                return Ok(this.dbContext.Campaigns.ToList());
             }catch
             {
                 return BadRequest();
