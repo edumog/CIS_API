@@ -18,6 +18,6 @@ namespace CIS.DTOs
         public string? PhoneDelimiter { get; set; }
         public string[] Addresses { get; set; }
         public string? AddressDelimiter { get; set; }
-        public IFormFile? File { get; set; }
+        public IFormFile File { get; set; }
     }
 }
